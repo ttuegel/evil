@@ -1421,7 +1421,7 @@ New Tex[t]
 ;; then enter the text QQQthat file's own buffer.
 ")))
 
-(ert-deftest evil-visual-block-append ()
+(ert-deftest evil-test-visual-block-append ()
   "Test appending in visual block."
   :tags '(evil visual insert)
   (ert-info ("Simple append")
@@ -7455,6 +7455,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-ex ()
   "Test command line window for ex commands"
+  (when noninteractive (ert-skip "Batch mode"))
   (let (evil-ex-history)
     (evil-test-buffer
       "[f]oo foo foo"
@@ -7475,6 +7476,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-recursive ()
   "Test that recursive command windows shouldn't be allowed"
+  (when noninteractive (ert-skip "Batch mode"))
   (let ((evil-command-window-height 0))
     (evil-test-buffer
       "[f]oo foo foo"
@@ -7484,6 +7486,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-noop ()
   "Test that executing a blank command does nothing"
+  (when noninteractive (ert-skip "Batch mode"))
   (evil-test-buffer
     "[f]oo foo foo"
     ("q:")
@@ -7493,6 +7496,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-multiple ()
   "Test that multiple command line windows can't be visible at the same time"
+  (when noninteractive (ert-skip "Batch mode"))
   (let ((evil-command-window-height 0))
     (evil-test-buffer
       "[f]oo foo foo"
@@ -7513,6 +7517,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-search-history ()
   "Test command window with forward and backward search history"
+  (when noninteractive (ert-skip "Batch mode"))
   (let ((evil-search-module 'isearch))
     (evil-test-buffer
       "[f]oo bar baz qux one two three four"
@@ -7543,6 +7548,7 @@ maybe we need one line more with some text\n")
 
 (ert-deftest evil-test-command-window-search-word ()
   "Test command window history when searching for word under cursor"
+  (when noninteractive (ert-skip "Batch mode"))
   (let ((evil-search-module 'isearch))
     (evil-test-buffer
       "[f]oo bar foo bar foo"
