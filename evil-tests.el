@@ -8084,15 +8084,6 @@ maybe we need one line more with some text\n")
         "z z z [z] z z z z z z"
         ("\C-i\C-i")
         "z z z z z [z] z z z z"))
-    (ert-info ("Test jumping backward and forward across buffers")
-      (evil-test-buffer
-        "[z] z z z z z z z z z"
-        (":new" [return] "inew buffer" [escape])
-        "new buffe[r]"
-        ("\C-o")
-        "[z] z z z z z z z z z"
-        ("\C-i")
-        "new buffe[r]"))
     (ert-info ("Test jumping backward and forward with counts")
       (evil-test-buffer
         "[z] z z z z z z z z z"
@@ -8114,6 +8105,20 @@ maybe we need one line more with some text\n")
         "z [z] z z z z z z"
         ("3\C-i") ;; even after jumping forward 3 times it can't get past the 3rd z
         "z z [z] z z z z z"))))
+
+(ert-deftest evil-test-jump-across-buffers ()
+  :tags '(evil jumps)
+  (when noninteractive (ert-skip "Batch mode"))
+  (let ((evil--jumps-buffer-targets "\\*\\(new\\|scratch\\|test\\)\\*"))
+    (ert-info ("Test jumping backward and forward across buffers")
+      (evil-test-buffer
+        "[z] z z z z z z z z z"
+        (":new" [return] "inew buffer" [escape])
+        "new buffe[r]"
+        ("\C-o")
+        "[z] z z z z z z z z z"
+        ("\C-i")
+        "new buffe[r]"))))
 
 (ert-deftest evil-test-abbrev-expand ()
   :tags '(evil abbrev)
