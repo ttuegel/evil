@@ -1757,6 +1757,9 @@ See also `evil-shift-left'."
             (indent-to new-indent 0))
           (delete-region (point) (progn (skip-chars-forward " \t") (point)))
           (forward-line 1))))
+    ;; ensure that first-shift is always set: if point is at the end of the
+    ;; buffer, the (while (< (point) end) ...) block above will never run
+    (unless first-shift (setq first-shift evil-shift-width))
     ;; assuming that point is in the first line, adjust its position
     (if (called-interactively-p 'any)
         (evil-first-non-blank)
